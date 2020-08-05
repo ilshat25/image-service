@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+
+{% block title %}<h1>Edit profile<h1>{% endblock title %}
+
+{% block content %}
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save changes</button>
+    </form>
+
+    <div class="provider-connections">
+        <a href="{% url 'socialaccount_connections' %}">You can add or remove 3rd party account.</a>
+    </div>
+
+{% endblock content %}

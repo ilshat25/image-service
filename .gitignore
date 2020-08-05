@@ -1,3 +1,9 @@
 venv/
 db.sqlite3
 */__pycache__
+*/migrations/
+.vscode/
+media/
+cert.crt
+cert.key
+users.txt

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+
+{% block title %}<h1>Account Connections</h1>{% endblock title %}
+
+{% block content %}
+    <form method="post" class="form">
+        {% csrf_token %}
+        <p>You can sign in to your account using any of the following third party accounts:</p>
+        {% if form.non_field_errors %}
+        <div id="errorMsg">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% for base_account in form.accounts %}
+        {% with base_account.get_provider_account as account %}
+        <div>
+        <label for="id_account_{{ base_account.id }}">
+        <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
+        <span class="socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
+        {{ account }}
+        </label>
+        </div>
+        {% endwith %}
+        {% empty %}
+            <p style="text-align:center; text-decoration: underline;">No social accounts yet.</p>
+        {% endfor %}
+
+        {% if form.accounts %}
+            <div>
+            <button type="submit" class="btn">Remove</button>
+            </div>
+        {% endif %}
+
+    </form>
+
+    <div class="provider-connections">
+        <h2>Add a 3rd Party Account</h2>
+        <a href="{% provider_login_url 'google' process='connect' %}" class="btn google-btn">Connect to Google</a>
+        <a href="{% provider_login_url 'vk' process='connect' %}" class="btn vk-btn">Connect to VK</a>
+    </div>
+
+{% endblock content %}

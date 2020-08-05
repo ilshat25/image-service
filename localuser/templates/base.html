@@ -1,0 +1,63 @@
+{% load static %}
+{% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image service</title>
+    {% comment %} css styles {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% comment %} Font awesome {% endcomment %}
+    <script src="https://kit.fontawesome.com/04646c20df.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header id="header">
+        <div id="icon">
+            <i class="far fa-images fa-2x"></i>
+        </div>
+        <nav class="nav-bar">
+            <ul class="nav-list">
+                <a class="nav-item" href="{% url 'dashboard' %}" {% if section == 'dashboard' %}style="text-decoration: underline;"{% endif %}><li>Dashboard</li></a>
+                <a class="nav-item" href="#" {% if section == 'images' %}style="text-decoration: underline;"{% endif %}><li>Images</li></a>
+                <a class="nav-item" href="#" {% if section == 'people' %}style="text-decoration: underline;"{% endif %}><li>People</li></a>
+            </ul>
+        </nav>
+        <div class="nav-user">
+            {% if request.user.is_authenticated %}
+                <span>Welcome, {{ request.user.get_username }}</span>
+                <a href="{% url 'edit' %}">
+                    {% if request.user.photo %}
+                        <div class="img-user-wrap">
+                            {% thumbnail request.user.photo "50x50" crop="center" as im %}
+                                <img src="{{ im.url }}" width={{ im.width }} height="{{ im.height }}" alt="" class="img-user">
+                            {% endthumbnail %}
+                        </div>
+                    {% else %}
+                        <span>edit</span>
+                    {% endif %}
+                </a>
+                <a href="{% url 'account_logout' %}" class="btn login-btn">Logout</a>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="btn">Sign in</a>
+                <a href="{% url 'account_signup' %}" class="btn">Sign up</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="title">
+        {% block title %}
+        {% endblock %}
+    </div>
+    <div class="content-wrap">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer id="footer">
+        <div class="sign">
+            Made by Ilshat G.
+        </div>
+    </footer>
+</body>
+</html>
