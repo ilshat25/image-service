@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('localuser.urls')),
+    path('images/', include('image.urls', namespace="images"))
     # path("signup/", views.signup, name="account_signup"),
     # path("login/", views.login, name="account_login"),
     # path("logout/", views.logout, name="account_logout"),

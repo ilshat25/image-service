@@ -6,7 +6,13 @@
 
 {% block content %}
     <div class="content">
-        <p>You can <a href="{% url 'account_change_password' %}">change your password</a> or <a href="{% url 'edit' %}">edit your profile</a></p>
+        {% with request.user.images_created.count as count %}
+            <p>Wellocom to your dashboard. You have bookmarke {{ count }} image{{ count|pluralize }}.</p>
+        {% endwith %}
+
+        <p>Drag the following button to your bookmarks toolbar to bookmark images from other websites -> <a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="btn">Bookmark It</a></p>
+
+        <p>You can also <a href="{% url 'edit' %}">edit your profile</a> or <a href="{% url 'account_change_password' %}">change your password</a></p> 
     </div>
 {% endblock content %}
 

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}
+    <h1>{{ image.title }}</h1>
+{% endblock title %}
+
+{% block content %}
+    <div class="detail-wrap">
+        {% thumbnail image.image "300x300" crop="center" as im %}
+        <img src="{{ im.url }}" width={{ im.width }} height="{{ im.height }}" class="image">
+        {% endthumbnail %}
+        <div class="image-info">
+            <h2 class="image-info-title">{{ image.title }}</h2>
+            <p class="image-info-description">{{ image.description }}</p>
+            <div class="extra-info">
+                <p class="publish-time">{{ image.created }}</p>
+                <p class="plusher">{{ image.publisher.username }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

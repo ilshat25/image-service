@@ -20,7 +20,7 @@
         <nav class="nav-bar">
             <ul class="nav-list">
                 <a class="nav-item" href="{% url 'dashboard' %}" {% if section == 'dashboard' %}style="text-decoration: underline;"{% endif %}><li>Dashboard</li></a>
-                <a class="nav-item" href="#" {% if section == 'images' %}style="text-decoration: underline;"{% endif %}><li>Images</li></a>
+                <a class="nav-item" href="{% url 'images:all' %}" {% if section == 'images' %}style="text-decoration: underline;"{% endif %}><li>Images</li></a>
                 <a class="nav-item" href="#" {% if section == 'people' %}style="text-decoration: underline;"{% endif %}><li>People</li></a>
             </ul>
         </nav>

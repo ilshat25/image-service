@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}
+    <h1>All Images</h1>
+{% endblock title %}
+
+{% block content %}
+    <div class="images-wrap">
+        {% for image in images %}
+            {% thumbnail image.image "150x150" crop="center" as im %}
+                <a href="{{ image.get_absolute_url }}">
+                    <img src="{{ im.url }}" alt="" class="image">
+                </a>
+            {% endthumbnail %}
+        {% endfor %}
+    </div>
+{% endblock content %}

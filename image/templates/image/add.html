@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}
+    <h1>Add Image</h1>
+{% endblock title %}
+
+{% block content %}
+    {% if request.GET.url %}
+        {% thumbnail request.GET.url "300x300" crop="center" as im %}
+            <img src="{{ im.url }}"  class="image">
+        {% endthumbnail %}
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn submit-btn">Add Image</button>
+        </form>
+    {% else %}
+        <p>Forbiden url in get request...</p>
+    {% endif %}
+{% endblock content %}
