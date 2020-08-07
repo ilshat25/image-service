@@ -13,6 +13,10 @@ class Image(models.Model):
     image = models.ImageField(upload_to="img/%Y/%m/%d/")
     created = models.DateTimeField(auto_now_add=True)
     url = models.URLField()
+    users_like = models.ManyToManyField(get_user_model(),
+                                        related_name='images_liked',
+                                        blank=True)
+    # total_likes = models.PositiveIntegerField(db_index=True, default=0)
 
     def save(self, *args, **kwargs):
         if not self.slug:

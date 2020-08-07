@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+{% block title %}
+    <h1>User detail</h1>
+{% endblock title %}
+
+{% block content %}
+    <div class="image-info">
+        {% thumbnail user.photo "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" alt="" class="people-img">
+        {% endthumbnail %}
+        {% with user.followers.count as followers_count %}
+            <span class="followers-count">
+                {{ followers_count }} follower{{ followers_count|pluralize }}
+            </span>
+        {% endwith %}
+
+        <h2>{{ user.username }}</h2>
+        {% if user.first_name %}
+            <p>First name: {{ user.first_name }}</p>
+        {% endif %}
+        {% if user.last_name %}
+        <p>Second name: {{ user.last_name }}</p>
+        {% endif %}
+        {% if user.email %}
+        <p>Email: {{ user.email }}</p>
+        {% endif %}
+        <br>
+        {% if user in request.user.following.all %}
+            <a href="#" class="btn unlike-btn like" data-action="unfollow" data-id="{{ user.pk }}">Unfollow</a>
+        {% else %}
+            <a href="#" class="btn like-btn like" data-action="follow" data-id="{{ user.pk }}">Follow</a>
+        {% endif %} 
+    </div>
+    <br><br><br>
+    <div class="added-images">
+        {% if user.images_created.all %}
+            <h2>Added images</h2>
+            {% include 'image/images_list.html' with images=user.images_created.all %}
+        {% else %}
+            <h2>No added images</h2>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block domready %}
+    let request_url = {% url 'follow' %}
+    {% include 'follow_ajax.js' %}
+{% endblock domready %}

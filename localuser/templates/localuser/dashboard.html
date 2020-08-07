@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block title %}
     <h1>Dashboard</h1>
@@ -13,6 +14,41 @@
         <p>Drag the following button to your bookmarks toolbar to bookmark images from other websites -> <a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="btn">Bookmark It</a></p>
 
         <p>You can also <a href="{% url 'edit' %}">edit your profile</a> or <a href="{% url 'account_change_password' %}">change your password</a></p> 
+
+        <div class="most-viewed-images">
+            <h2>Most viewed images</h2>
+            <div>
+                {% include 'image/images_list.html' with images=most_viewed_images %}
+            </div>
+        </div>
+
+        <div class="actions">
+            {% if actions %}
+                <h2>Last actions</h2>
+                {% for action in actions %}
+                <div class="action">
+                        {% thumbnail action.user.photo "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" alt="user" class="image">
+                        {% endthumbnail %}
+                        {% if action.target.photo %}
+                            {% thumbnail action.target.photo "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }} " height="{{ im.height }}" alt="user" class="image">
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail action.target.image "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" alt="image" class="image">
+                        {% endthumbnail %}
+                        {% endif %}
+                        <span class="action-info">
+                            <a href="{{ action.user.get_absolute_url }}">{{ action.user.username  }}</a> {{ action.verb }} <a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
+                        </span>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h2>No actions</h2>
+            {% endif %}
+        </div>
     </div>
+
 {% endblock content %}
 

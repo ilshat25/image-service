@@ -7,16 +7,37 @@
 
 {% block content %}
     <div class="detail-wrap">
+
         {% thumbnail image.image "300x300" crop="center" as im %}
         <img src="{{ im.url }}" width={{ im.width }} height="{{ im.height }}" class="image">
         {% endthumbnail %}
-        <div class="image-info">
-            <h2 class="image-info-title">{{ image.title }}</h2>
-            <p class="image-info-description">{{ image.description }}</p>
-            <div class="extra-info">
-                <p class="publish-time">{{ image.created }}</p>
-                <p class="plusher">{{ image.publisher.username }}</p>
+        <div class="info-container">
+            <div class="total-views"><span>
+                {{ total_views }} view{{ total_views|pluralize }}
+            </span></div>
+            <div class="action-like">
+                {% with image.users_like.count as total_likes %}
+                    <span class="view like-view">{{ total_likes }} like{{ total_likes|pluralize }}</span>
+                {% endwith %}
+                {% if request.user in image.users_like.all %}
+                    <a href="#" class="btn unlike-btn like" data-action="unlike" data-id="{{ image.pk }}">Unlike</a>
+                {% else %}
+                    <a href="#" class="btn like-btn like" data-action="like" data-id="{{ image.pk }}">Like</a>           
+                {% endif %}
+            </div>
+            <div class="image-info">
+                <h2 class="image-info-title">{{ image.title }}</h2>
+                <p class="image-info-description">{{ image.description }}</p>
+                <div class="extra-info">
+                    <p class="publish-time">{{ image.created }}</p>
+                    <p class="plusher"><a href="{{ image.publisher.get_absolute_url }}">{{ image.publisher.username }}</p></a>
+                </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block domready %}
+    let request_url = '{% url 'images:like' %}';
+    {% include 'like_ajax.js' %}
+{% endblock domready %}

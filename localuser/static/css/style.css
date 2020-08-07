@@ -40,7 +40,7 @@
     --clr-red-dark: hsl(360, 67%, 44%);
     --clr-red-light: rgb(248, 200, 200);
     --clr-green-dark: hsl(125, 67%, 44%);
-    --clr-green-light: hsl(125, 71%, 66%);
+    --clr-green-light: hsl(125, 93%, 82%);
     --clr-blue-dark: hsl(225, 78%, 42%);
     --clr-blue-light: hsl(225, 100%, 86%);
     --clr-black: #222;
@@ -263,7 +263,7 @@ label {
 }
 
 .image {
-    margin: 2rem;
+    margin: 1rem;
     border: 2px solid var(--clr-primary-5);
     border-radius: var(--radius);
     box-shadow: 2px 2px 5px var(--clr-shadow);
@@ -290,4 +290,86 @@ label {
     font-family: var(--ff-secondary);
     font-size: 0.8rem;
     color: var(--clr-grey-6);
+}
+
+.people-img {
+    border: 2px solid var(--clr-primary-5);
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px var(--clr-shadow);
+    margin: 1rem;
+}
+
+.image-holder {
+    display: inline-block;
+}
+
+.view {
+    color: var(--clr-primary-5);
+    border: 2px solid var(--clr-primary-5);
+    border-radius: var(--radius);
+    padding: 0.4rem 1rem;
+    margin: 0.5rem;
+    box-shadow: 2px 2px 5px var(--clr-shadow);
+}
+
+.action-like{
+    margin-bottom: 2rem;
+}
+
+.like-btn {
+    background: var(--clr-green-light);
+    border-color: var(--clr-green-dark);
+    color: var(--clr-green-dark);
+}
+
+.like-btn:hover {
+    background: var(--clr-green-dark);
+    color: var(--clr-green-light);
+    margin: 2rem;
+}
+
+.unlike-btn {
+    background: var(--clr-red-light);
+    border-color: var(--clr-red-dark);
+    color: var(--clr-red-dark);
+}
+
+.unlike-btn:hover {
+    background: var(--clr-red-dark);
+    color: var(--clr-red-light);
+    margin: 2rem;
+}
+
+.followers-count {
+    display: block;
+    font-family: var(--ff-secondary);
+    color: var(--clr-grey-5);
+    font-size: 0.7rem;
+}
+
+.total-views {
+    text-align: left;
+    margin-bottom: 1rem;
+    font-family: var(--ff-secondary);
+    color: var(--clr-grey-4);
+    font-size: 0.8rem;
+}
+
+.action {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: var(--clr-grey-9);
+    border-radius: var(--radius);
+    box-shadow: 2px 2px 5px var(--clr-shadow);
+    padding-right: 1rem;
+    margin: 1rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

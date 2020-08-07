@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'localuser',
     'image',
+    'action',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -168,3 +169,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# Redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6360
+REDIS_DB = 0

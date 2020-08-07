@@ -13,7 +13,8 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('Photo'), {'fields': ('photo',)})
+        (_('Photo'), {'fields': ('photo',)}),
+        # (_('Followings'), {'fields': ('following',)})
     )
 
 admin.site.register(User, UserAdmin)
